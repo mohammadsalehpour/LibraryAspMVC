@@ -1,6 +1,8 @@
 using Library.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<HtmlEncoder>(
+  HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin,
+                                            UnicodeRanges.All,UnicodeRanges.Arabic }));
+
 
 var app = builder.Build();
 

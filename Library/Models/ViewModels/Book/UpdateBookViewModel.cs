@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace Library.Models.ViewModels
+namespace Library.Models.ViewModels.Book
 {
-    public class CreateBookViewModel
+    public class UpdateBookViewModel
     {
-
+        [DisplayName("شناسه")]
         public int Id { get; set; }
         [DisplayName("نام")]
+        [Required(ErrorMessage="نام کتاب اجباری می باشد")]
         public string Name { get; set; }
         [DisplayName("قیمت")]
         public int? Price { get; set; }
@@ -19,10 +21,13 @@ namespace Library.Models.ViewModels
         public int? PublishedYear { get; set; }
         [DisplayName("دسته بندی")]
         public int CategoryId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public List<int> AuthorIds { get; set; } = new();
 
-
-
+        [DisplayName("لیست دسته بندی")]
         public List<SelectListItem>? Categories { get; set; } = new();
+
+        [DisplayName("لیست نویسنده ها")]
+        public List<SelectListItem>? Authors { get; set; } = new();
+
     }
 }

@@ -1,61 +1,99 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model Library.Models.ViewModels.Book.CreateBookViewModel
+﻿@model Library.Models.ViewModels.Book.UpdateBookViewModel
+@{
+
+    var Name = Model.Name;
+}
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>Edit Book: @Name</h1>
 
-<h1>Create New Book</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Inventory" class="control-label"></label>
                 <input asp-for="Inventory" class="form-control" />
                 <span asp-validation-for="Inventory" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="PagesCount" class="control-label"></label>
                 <input asp-for="PagesCount" class="form-control" />
                 <span asp-validation-for="PagesCount" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="PublishedYear" class="control-label"></label>
                 <input asp-for="PublishedYear" class="form-control" />
                 <span asp-validation-for="PublishedYear" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" asp-items="@Model.Categories" class="form-control"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Authors" class="control-label"></label>
-                <select asp-for="AuthorIds" asp-items="@Model.Authors" class="form-control" multiple></select>
+                <select asp-for="AuthorIds" class="form-control" multiple>
+                    @foreach (var item in Model.Authors)
+                    {
+                        if (item.Selected)
+                        {
+                            <option value="@item.Value" selected> @item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value"> @item.Text</option>
+                        }
+                    }
+
+                </select>
                 <span asp-validation-for="Authors" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+
+
+
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
