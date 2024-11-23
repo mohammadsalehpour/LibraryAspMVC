@@ -1,8 +1,10 @@
-﻿@model IEnumerable<IndexBookViewModel>
+﻿@model IEnumerable<Library.Models.ViewModels.Book.IndexBookViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    (string item1, string item2) = (Tuple<string, string>) TempData["AlertMessage"];
 }
 
 <h1>Index</h1>
@@ -64,3 +66,20 @@
 }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            let alertPattern = `<div class="alert alert-@item1">@item2</div>`;
+
+            let message = "@TempData["Message"]";
+            console.log("message", message);
+            if (message != "") {
+                alert(message);
+            }
+        });
+
+    </script>
+
+}
